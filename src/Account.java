@@ -62,7 +62,8 @@ public class Account {
 
     public void withdraw(double withdrawAmount) {
         if (balance < withdrawAmount) {
-            System.out.println("Insufficient founds: Cannot withdraw amount of " + withdrawAmount + "$ from the account with id: " + id);
+            System.out.println("Insufficient founds: Cannot withdraw amount of "
+                    + withdrawAmount + "$ from the account with id: " + id);
         } else {
             System.out.println("- Withdraw of " + withdrawAmount + "$ from the account with id: " + id);
             balance = balance - withdrawAmount;
@@ -81,7 +82,8 @@ public class Account {
     }
 
     public double getBalance() {
-        System.out.println("Current account balance is " + this.balance + "\n------------------------------------------------------------------------");
+        System.out.println("Current account balance is " +
+                this.balance + "\n------------------------------------------------------------------------");
         return balance;
     }
 

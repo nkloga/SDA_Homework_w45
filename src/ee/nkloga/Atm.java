@@ -1,26 +1,15 @@
+package ee.nkloga;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-/*
-        Task3: Write a test program that creates an Account object with an account ID of 1122,
-        a balance of $20,000, and an annual interest rate of 4.5%. Use the withdraw method to withdraw $2,500,
-        use the deposit method to deposit $3,000, and print the balance,
-        the monthly interest, and the date when this account was created
+public class Atm {
 
-        Task4: Use the Account class created in *Task2* to simulate an ATM machine.
-        Create ten accounts in an array with id 0, 1, . . . , 9, and initial balance $100.
-        The system prompts the user to enter an id. If the id is entered incorrectly,
-        ask the user to enter a correct id.
-        Once an id is accepted, the main menu is displayed as shown in the sample run.
-        You can enter a choice 1 for viewing the current balance, 2 for withdrawing money,
-        3 for depositing money, and 4 for exiting the main menu. Once you exit,
-        the system will prompt for an id again.
-        Thus, once the system starts, it will not stop.
-        */
-
-public class ATM {
+    private static final String MENU_NUMBER = "menuNumber";
+    private static final String ID_NUMBER = "idNumber";
+    private static final int NUMBER_OF_ACCOUNTS = 10;
 
     public static BufferedReader createBufferedReader() {
         return new BufferedReader(new InputStreamReader(System.in));
@@ -40,12 +29,12 @@ public class ATM {
 
     public static int userIntInput(BufferedReader in, String type) {
         int min = 0, max = 0;
-        if (type.equals("menuNumber")) {
+        if (type.equals(MENU_NUMBER)) {
             min = 1;
             max = 4;
-        } else if (type.equals("idNumber")) {
+        } else if (type.equals(ID_NUMBER)) {
             min = 0;
-            max = 10;
+            max = NUMBER_OF_ACCOUNTS;
         }
         while (true) { // we end the loop by a return, not by a condition.
             try {
@@ -81,7 +70,7 @@ public class ATM {
     public static void main(String[] args) throws IOException {
 
         ArrayList<Account> listOfAccounts = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < NUMBER_OF_ACCOUNTS; i++) {
             listOfAccounts.add(new Account(i, 100.0));
             listOfAccounts.get(i).setAnnualInterestRate(7.5);
         }
@@ -95,7 +84,7 @@ public class ATM {
 
         BufferedReader reader = createBufferedReader();
         System.out.println("Enter the account id: ");
-        int userInputID = userIntInput(reader, "idNumber");
+        int userInputID = userIntInput(reader, ID_NUMBER);
         System.out.println("The id has been accepted");
 
         System.out.println(listOfAccounts.get(userInputID));
@@ -104,7 +93,7 @@ public class ATM {
             System.out.println("Enter 1 to view your current balance, " +
                     "2 for withdrawing money, " +
                     "3 for depositing money or 4 for exiting the main menu.");
-            Integer userInputNumber = userIntInput(reader, "menuNumber");
+            Integer userInputNumber = userIntInput(reader, MENU_NUMBER);
             switch (userInputNumber) {
                 case 1:
                     System.out.println(listOfAccounts.get(userInputID));
@@ -122,9 +111,11 @@ public class ATM {
                 case 4:
                     menuIteration = false;
                     System.out.println("In order to exit, enter your account id again: ");
-                    userIntInput(reader, "idNumber");
+                    userIntInput(reader, ID_NUMBER);
                     reader.close();
                     break;
+                default:
+                    System.out.println("Default output"); // not sure why / how should I use default in this context
             }
         }
     }
